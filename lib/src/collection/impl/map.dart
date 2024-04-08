@@ -11,8 +11,7 @@ class DartMap<K, V> extends Object implements KtMap<K, V> {
   final Map<K, V> _map;
 
   @override
-  Iterable<KtMapEntry<K, V>> get iter =>
-      _map.entries.map((entry) => _Entry.from(entry));
+  Iterable<KtMapEntry<K, V>> get iter => _map.entries.map((entry) => _Entry.from(entry));
 
   @override
   Map<K, V> asMap() => _map;
@@ -24,8 +23,7 @@ class DartMap<K, V> extends Object implements KtMap<K, V> {
   bool containsValue(V value) => _map.containsValue(value);
 
   @override
-  KtSet<KtMapEntry<K, V>> get entries =>
-      setFrom(_map.entries.map((entry) => _Entry.from(entry)));
+  KtSet<KtMapEntry<K, V>> get entries => setFrom(_map.entries.map((entry) => _Entry.from(entry)));
 
   @override
   V? get(K key) => _map[key];
@@ -49,36 +47,30 @@ class DartMap<K, V> extends Object implements KtMap<K, V> {
   KtCollection<V> get values => listFrom(_map.values);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
     if (other is! KtMap) return false;
     if (other.size != size) return false;
     if (other.hashCode != hashCode) return false;
-    for (final key in keys.iter) {
-      if (other[key] != this[key]) return false;
-    }
+    // for (final key in keys.iter) {
+    //   if (other[key] != this[key]) return false;
+    // }
     return true;
   }
 
   @override
   int get hashCode {
-    return hashObjects(_map.keys
-        .map((key) => hash2(key.hashCode, _map[key].hashCode))
-        .toList(growable: false)
-      ..sort());
+    return hashObjects(_map.keys.map((key) => hash2(key.hashCode, _map[key].hashCode)).toList(growable: false)..sort());
   }
 
   @override
   String toString() {
-    return entries.joinToString(
-        separator: ", ", prefix: "{", postfix: "}", transform: _entryToString);
+    return entries.joinToString(separator: ", ", prefix: "{", postfix: "}", transform: _entryToString);
   }
 
-  String _entryToString(KtMapEntry<K, V> entry) =>
-      "${_toString(entry.key)}=${_toString(entry.value)}";
+  String _entryToString(KtMapEntry<K, V> entry) => "${_toString(entry.key)}=${_toString(entry.value)}";
 
-  String _toString(Object? o) =>
-      identical(o, this) ? "(this Map)" : o.toString();
+  String _toString(Object? o) => identical(o, this) ? "(this Map)" : o.toString();
 }
 
 class _Entry<K, V> extends KtMapEntry<K, V> {

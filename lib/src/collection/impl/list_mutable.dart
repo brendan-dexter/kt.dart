@@ -36,8 +36,7 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
   @override
   T get(int index) {
     if (index < 0 || index >= size) {
-      throw IndexOutOfBoundsException(
-          "List doesn't contain element at index: $index, size: $size");
+      throw IndexOutOfBoundsException("List doesn't contain element at index: $index, size: $size");
     }
     return _list[index];
   }
@@ -137,24 +136,23 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
       return true;
     }());
     if (fromIndex < 0 || toIndex > size) {
-      throw IndexOutOfBoundsException(
-          "fromIndex: $fromIndex, toIndex: $toIndex, size: $size");
+      throw IndexOutOfBoundsException("fromIndex: $fromIndex, toIndex: $toIndex, size: $size");
     }
     return DartMutableList(_list.sublist(fromIndex, toIndex));
   }
 
   @override
-  int get hashCode => 1 + hashObjects(_list);
+  int get hashCode => hashObjects(_list);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
     if (other is! KtList) return false;
     if (other.size != size) return false;
     if (other.hashCode != hashCode) return false;
-    for (var i = 0; i != size; ++i) {
-      if (other[i] != this[i]) return false;
-    }
+    // for (var i = 0; i != size; ++i) {
+    //   if (other[i] != this[i]) return false;
+    // }
     return true;
   }
 
@@ -164,8 +162,7 @@ class DartMutableList<T> extends Object implements KtMutableList<T> {
       separator: ", ",
       prefix: "[",
       postfix: "]",
-      transform: (it) =>
-          identical(it, this) ? "(this Collection)" : it.toString(),
+      transform: (it) => identical(it, this) ? "(this Collection)" : it.toString(),
     );
   }
 }

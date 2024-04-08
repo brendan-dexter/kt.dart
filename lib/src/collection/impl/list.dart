@@ -68,17 +68,16 @@ class DartList<T> extends Object implements KtList<T> {
       return true;
     }());
     if (fromIndex < 0 || toIndex > size) {
-      throw IndexOutOfBoundsException(
-          "fromIndex: $fromIndex, toIndex: $toIndex, size: $size");
+      throw IndexOutOfBoundsException("fromIndex: $fromIndex, toIndex: $toIndex, size: $size");
     }
     return DartList(_list.sublist(fromIndex, toIndex));
   }
 
   @override
-  int get hashCode => 1 + hashObjects(_list);
+  int get hashCode => hashObjects(_list);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
     if (other is! KtList) return false;
     if (other.size != size) return false;
@@ -95,8 +94,7 @@ class DartList<T> extends Object implements KtList<T> {
       separator: ", ",
       prefix: "[",
       postfix: "]",
-      transform: (it) =>
-          identical(it, this) ? "(this Collection)" : it.toString(),
+      transform: (it) => identical(it, this) ? "(this Collection)" : it.toString(),
     );
   }
 }

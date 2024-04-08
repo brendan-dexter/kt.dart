@@ -42,11 +42,10 @@ class DartMutableSet<T> extends Object implements KtMutableSet<T> {
   int get size => _set.length;
 
   @override
-  int get hashCode =>
-      hashObjects(_set.map((e) => e.hashCode).toList(growable: false)..sort());
+  int get hashCode => hashObjects(_set.map((e) => e.hashCode).toList(growable: false)..sort());
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
     if (other is! KtSet) return false;
     if (other.size != size) return false;
@@ -96,8 +95,7 @@ class DartMutableSet<T> extends Object implements KtMutableSet<T> {
       separator: ", ",
       prefix: "[",
       postfix: "]",
-      transform: (it) =>
-          identical(it, this) ? "(this Collection)" : it.toString(),
+      transform: (it) => identical(it, this) ? "(this Collection)" : it.toString(),
     );
   }
 }

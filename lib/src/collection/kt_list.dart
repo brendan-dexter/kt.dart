@@ -22,17 +22,7 @@ abstract class KtList<T> implements KtCollection<T> {
   /// Returns a new read-only list of given elements.
   ///
   /// `null` is a valid argument
-  factory KtList.of(
-      [T arg0,
-      T arg1,
-      T arg2,
-      T arg3,
-      T arg4,
-      T arg5,
-      T arg6,
-      T arg7,
-      T arg8,
-      T arg9]) = KtList<T>._of;
+  factory KtList.of([T arg0, T arg1, T arg2, T arg3, T arg4, T arg5, T arg6, T arg7, T arg8, T arg9]) = KtList<T>._of;
 
   /// Implementation of KtList.of which creates a list of provided arguments
   /// where `T` might be `T` or `null`.
@@ -183,8 +173,7 @@ extension KtListExtensions<T> on KtList<T> {
       for (final element in iter) {
         if (predicate(element)) return element;
       }
-      throw const NoSuchElementException(
-          "Collection contains no element matching the predicate.");
+      throw const NoSuchElementException("Collection contains no element matching the predicate.");
     }
   }
 
@@ -217,9 +206,7 @@ extension KtListExtensions<T> on KtList<T> {
 
   /// Returns an element at the given [index] or the result of calling the [defaultValue] function if the [index] is out of bounds of this list.
   T getOrElse(int index, T Function(int) defaultValue) {
-    return (index >= 0 && index <= lastIndex)
-        ? get(index)
-        : defaultValue(index);
+    return (index >= 0 && index <= lastIndex) ? get(index) : defaultValue(index);
   }
 
   /// Returns an element at the given [index] or `null` if the [index] is out of bounds of this list.
@@ -244,8 +231,7 @@ extension KtListExtensions<T> on KtList<T> {
           return element;
         }
       }
-      throw const NoSuchElementException(
-          "Collection contains no element matching the predicate.");
+      throw const NoSuchElementException("Collection contains no element matching the predicate.");
     }
   }
 
@@ -298,16 +284,14 @@ extension KtListExtensions<T> on KtList<T> {
       for (final element in iter) {
         if (predicate(element)) {
           if (found) {
-            throw ArgumentError(
-                "Collection contains more than one matching element.");
+            throw ArgumentError("Collection contains more than one matching element.");
           }
           single = element;
           found = true;
         }
       }
       if (!found) {
-        throw const NoSuchElementException(
-            "Collection contains no element matching the predicate.");
+        throw const NoSuchElementException("Collection contains no element matching the predicate.");
       }
       return single!;
     }
@@ -507,17 +491,17 @@ class _CastKtList<Source, T> implements KtList<T> {
   }
 
   @override
-  int get hashCode => 1 + hashObjects(_list.asList());
+  int get hashCode => hashObjects(_list.asList());
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
     if (other is! KtList) return false;
     if (other.size != size) return false;
     if (other.hashCode != hashCode) return false;
-    for (var i = 0; i != size; ++i) {
-      if (other[i] != this[i]) return false;
-    }
+    // for (var i = 0; i != size; ++i) {
+    //   if (other[i] != this[i]) return false;
+    // }
     return true;
   }
 
@@ -527,8 +511,7 @@ class _CastKtList<Source, T> implements KtList<T> {
       separator: ", ",
       prefix: "[",
       postfix: "]",
-      transform: (it) =>
-          identical(it, this) ? "(this Collection)" : it.toString(),
+      transform: (it) => identical(it, this) ? "(this Collection)" : it.toString(),
     );
   }
 }
