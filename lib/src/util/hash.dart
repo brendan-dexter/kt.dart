@@ -2,32 +2,13 @@
 // https://github.com/google/quiver-dart/blob/master/lib/src/core/hash.dart
 
 /// Generates a hash code for multiple [objects].
-int hashObjects<T>(Iterable<T> objects) =>
-    _finish(objects.fold(0, (h, i) => _combine(h, i.hashCode)));
+int hashObjects<T>(Iterable<T> objects) => Object.hashAll(objects);
 
 /// Generates a hash code for two objects.
-int hash2(Object a, Object b) =>
-    _finish(_combine(_combine(0, a.hashCode), b.hashCode));
+int hash2(Object a, Object b) => Object.hash(a, b);
 
 /// Generates a hash code for three objects.
-int hash3(Object a, Object b, Object c) => _finish(
-    _combine(_combine(_combine(0, a.hashCode), b.hashCode), c.hashCode));
+int hash3(Object a, Object b, Object c) => Object.hash(a, b, c);
 
 /// Generates a hash code for four objects.
-int hash4(Object a, Object b, Object c, Object d) => _finish(_combine(
-    _combine(_combine(_combine(0, a.hashCode), b.hashCode), c.hashCode),
-    d.hashCode));
-
-// Jenkins hash functions
-
-int _combine(int hash, int value) {
-  var h = 0x1fffffff & (hash + value);
-  h = 0x1fffffff & (h + ((0x0007ffff & h) << 10));
-  return h ^ (h >> 6);
-}
-
-int _finish(int hash) {
-  var h = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-  h = h ^ (h >> 11);
-  return 0x1fffffff & (h + ((0x00003fff & h) << 15));
-}
+int hash4(Object a, Object b, Object c, Object d) => Object.hash(a, b, c, d);
